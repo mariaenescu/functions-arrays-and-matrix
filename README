@@ -1,0 +1,97 @@
+Enescu Maria, 311CA
+
+Problema 1 - INFINITE PRODUCT:
+
+***Datorita restrictiilor de memorie, am ales ca mod de rezolvare a problemei o functie VOID
+CITIRE a n perechi de numere (a, b), reprezentand fiecare coordonatele a 2 vectori. In aceasta
+functie, ce nu returneaza nimic, am prelucrat perechile de vectori pe masura ce i-am citit de la
+tastatura direct in baza 8 cu ajutorul lui %o, astfel:
+	**Am aflat maximul(maxA,maxB) si al doilea maxim(prevA,prevB). Avem cazuri particulare:
+		*Cand avem acelasi element in vector pe toate pozitiile acestuia => prevA sau prevB nu
+		este initializat;
+		*In care avem ca prim element maximul, iar restul elementelor sunt 0;
+	Daca firstA sau firstB sunt 0 => prevA sau prevB este cel corect;
+	**Am aflat produsul scalar a vectorilor a si b (produs_scalar) cu formula aferenta de calcul.
+	**Am aflat suma patratelor fiecarui element din vectorii a si b (snormA, snormB), urmand a calcula
+	norma pentru fiecare dintre acesti 2 vectori (normaA, normaB) cu ajutorul radicalului(sqrt), astfel, fiind 
+	nevoie de introducerea bibliotecii math.h;
+***In interiorul functiei INT MAIN:
+	**Am declarat si citit n;
+	**Am apelat functia CITIRE;
+	**Am printat valorile in ordinea cerintei, calculand norma cu exact 7 zecimale, folosid %.7f;
+
+
+Problema 2 - SIMPLE QUERIES:
+
+***Funtia INT CMMDC returneaza cel mai mare divizor comun dintre 2 numere date, folosidu-o la urma pentru aducerea in forma
+ireductibila a fractiei cerute la afisarea alertei;
+***Functia VOID ORDONEAZA, ce nu returneaza nimic, ordoneaza descrescator dupa numarul de aparitii, iar lexicografic in cazul
+in cazul de egalitate al numerelor de aparitii, intorcand caracterele rezultate in vectorul vect_rezultat[];
+***Functia INT MAIN:
+	**Am initializat vectorul litere[26] cu 0, urmand a retine in el aparitiile literei corespunzatoare pozitiei din vector; 
+	**Initializez variabilele nr_litere_citite si ultima_alerta cu 0. In nr_litere_citite retin numarul de litere odata ce le
+	si citesc de la tastatura, iar in ultima_alerta numar literele pana in momentul anuntarii unei alerte, moment in care ultima_alerta
+	se reseteaza, devenind iar 0;
+	**Citesc caracterul prin variabila de tip char caracter si enter-ul prin variabila tot de tip char spatiu. In functie de caracterul citit
+	de la tastatura prelucrez si afisez astfel:
+		*Daca acel caracter este a,b,c...z: ii cresc numarul de aparitii in vectorul litera[caracter-'a'], cresc ultima_alerta, cat si nr_litere_citite,
+		verific daca sau citit minim 5 litere de la ultima_alerta =>atunci gasesc litera cu cele mai multe aparitii prin apelarea functiei
+		ordoneaza(vect_rezultat, litere, 1) => in n preiau numarul de aparitii pentru litera respectiva, urmand sa vad daca n >= (nr_litere_citite / 2.0),
+		se face impartire reala pentru ca impartirea intre 2 numere intregi are ca rezultat tot un numer intreg(Ex. 11/2=5 in loc de 11/2=5.5)=>astefel,
+		resetez contorul de ultima_alerta, urmand sa afisez alarma in forma ceruta;
+		*Daca acel caracter este Q => afisez caracterul si numarul acestuia de aparitii pana in acel moment care este stocat in vectorul litere[caracter-'a'];
+		*Daca acel caracter este E => scad din numarul total de litere citite pana in acel moment numarul de aparitii al literei respective
+		( nr_litere_citite -= litere[caracter - 'a']), eliminandu-i si numarul de aparitii din litere[caracter - 'a'] = 0;
+		*Daca acel caracter este T => initializez variabila de tip intreg top = 0, astfel incat sa-mi intre odata in do while pentru a citi cu cate litere
+		sa se realizeze top-ul => ordoneaza(vect_rezultat, litere, top) ordoneaza descrescator dupa numarul de aparitii si lexicografic vectorul =>
+		traversez prin for-ul respectiv top-ul literelor din vector vect_rezultat[] => afisandu-le in parte prin vect_rezultat[i], 
+		iar cand ajung la ultima litera din top, o afisez fara spatiu dupa aceasta;
+		*Daca acel caracter nu este niciunul dintre cele mentionate mai sus, atunci programul se opreste.
+
+
+Problema 3 - GIGEL_AND_THE_CHECKBOARD:
+
+***In functia VOID CITIRE_MATRICE am un for in for pentru a citii elementele m[i][j] din matricea m si pentru a initializa toate elementele vizitat[i][j] cu 0 
+din matricea vizitat;
+***Functia INT MAIN:
+	**Variabila d reprezinta distanta parcursa in total, astfel am initializat-o cu 0;
+	**Citesc un n de la tastatura, ce reprezinta marimea matricii patratice pe care o citesc tot de la tastatura prin apelarea la functia CITIRE_MATRICE;
+ 	**Marchez vizitat[0][0]=1 pentru ca odata ce pornesc cu primul element din matrice acesta este inevitabil vizitat;
+	**In acel while pe masura ce inaintez cu elementele din matrice le stochez intr-o variabila v pe care o folosesc pentru a face urmatoarele calcule si mutari:
+		*Adun la distanta, astfel: d+=v daca v este pozitiv sau d+=-v daca v este negativ;
+		*Daca v este 0, atunci programul se opreste. Altfel, se fac mutarile aferente pentru a afla pozitiile pe care ne mutam, tinand cont de unele aspecte,
+		precum: pozitia pe care se afla v este una para reprezentativa pentru patratica alba a tablei de sah, sau impara pentru cea neagra, daca  v este negativ
+		sau pozitiv;
+		*Daca dupa mutarile facute in urma carora indicii i si j s-au schimbat astfel incat sa fi trecut o data prin vizitat[i][j] atunci programul se opreste;
+	**Afisez distanta pe care programul a calculat-o pana la oprire, cat si indicii pozitiei la care s-a oprit: aici am luat in calcul faptul ca datele din enunt
+	specifica n<=1000 ceea ce, daca ne rezumam la literele alfabetului care sunt in numar de 26, avem cele trei cazuri scrise in afisarea pentru pozitie. 
+
+
+Problema 4 - ANOTHER_QUERIES:
+
+***In functia void citire_matrice(int a[NR][NR], int M) am un for in for pentru a citii elementele a[i][j] din matricea a;
+***De functia void initializare(int v[NR], int M, int val) ma folosesc pentru a initializa elementele vectorului v pe parcursul programului;
+***In functia void linie(int a[NR][NR], int M, int l, int rezultat[NR]), reprezentativa pentru regula 1 din enunt, ma folosesc de functia initializare(rezultat, M,1)
+pentru a initializa cu 1 toate elementele din vectorul rezultat, apoi parcurg toate coloanele de pe linia l, atfel incat daca valoarea respectiva din matrice
+este diferita de 0 => schimb valoarea din vectorul rezultat de pe pozitia a[l][k] cu 0;
+***In functia void coloana(int a[NR][NR], int M, int l, int rezultat[NR]), reprezentativa pentru regula 2 din enunt, ma folosesc de functia initializare(rezultat, M,1) 
+pentru a initializa cu 1 toate elementele din vectorul rezultat, apoi parcurg toate liniile de pe coloana c, atfel incat daca valoarea respectiva din matrice este
+diferita de 0 => schimb valoarea din vectorul rezultat de pe pozitia a[k][c] cu 0;
+***In functia void zona(int a[NR][NR], int M, int N, int z, int rezultat[NR]), reprezentativa pentru regula 3 din enunt, ma folosesc de functia 
+initializare(rezultat, M,1) pentru a initializa cu 1 toate elementele din vectorul rezultat, obtin catul, cat, si restul, rest, la impartirea dintre zona dorita,
+adica z, si N, de care ma folosesc pentru a afla indicii i si j ai careului dorit => parcureg elementele din careu daca valoarea respectiva din matrice este 
+diferita de 0 => schimb valoarea din vectorul rezultat de pe pozitia t cu 0;
+***In functia void afiseaza(int v[NR], int M) afiseaza vectorul v;
+***In functia void celula(int a[NR][NR], int M, int N, int x, int y, int rezultat[NR]), reprezentativa pentru regula 4 din enunt, daca elementul este 
+diferit de 0 => initializam cu 0 elementele din vectorul rezultat, altfel, verificam daca pe linie, pe coloana si pe zona se pot adauga valori. 
+Verificarea o facem prin intersectia vectorilor rezultati pe linie, coloana, zona;
+***In functia int celula_valida(int a[NR][NR], int M, int N, int x, int y) returnam 0 sau 1 daca in celula respectiva( data de x si y) avem o 
+valoare valida(nu mai exista valoarea din celula in o alta pozitie pe linie, pe coloana sau pe zona);
+***In funtia void valideaza6(int a[NR][NR], int M, int N) verificam daca mai putem continua jocul, astfel: daca gasim o pozitie libera si restul pozitiilor 
+ocupate sunt valide => afisez 0, daca avem o pozitie completata invalida ( se verifica prin apelul metodei celula_valida) => afisam 1, altfel,
+daca nu mai avem nicio celula libera si toate celulele ocupate sunt valide => afisez 2;
+***Functia INT MAIN: 
+	**Se citesc N si D(M-ul din enunt);
+	**Apelez functia de citire_matrice;
+	**In functie de regula citita, reg, apelez functiile corespunzatoare si afisez rezultatele obtinute;
+
